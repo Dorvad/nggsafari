@@ -10,60 +10,343 @@
 
   <style>
     :root {
-      --cream: #f5efe6;
-      --burgundy: #7a1e2e;
-      --burgundy-light: #a63248;
-      --warm-dark: #2e1a10;
-      --warm-mid: #7a6050;
-      --white: #ffffff;
+      --cream:    #f5efe6;
+      --burg:     #7a1e2e;
+      --burg-h:   #9e2a3d;
+      --dark:     #2e1a10;
+      --mid:      #7a6050;
+      --white:    #ffffff;
+      --border:   rgba(122,30,46,0.13);
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
 
     body {
       font-family: 'Heebo', sans-serif;
       background: var(--cream);
-      color: var(--warm-dark);
+      color: var(--dark);
       direction: rtl;
-      min-height: 100svh;
-      display: flex;
-      flex-direction: column;
     }
 
+    /* ─── PAGE SHELL ─────────────────────────────────── */
     .page {
-      flex: 1;
       display: grid;
-      grid-template-columns: 1fr 1.1fr;
+      grid-template-columns: 42% 58%;
       min-height: 100svh;
     }
 
-    /* ── Images column ── */
-    .side-images {
+    /* ─── IMAGE PANEL ────────────────────────────────── */
+    .panel-images {
       display: grid;
       grid-template-rows: 1fr 1fr 1fr;
-      gap: 3px;
+      gap: 4px;
       overflow: hidden;
+      position: sticky;
+      top: 0;
+      height: 100svh;
     }
 
-    .side-images img {
+    .panel-images img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
+      transition: transform 0.6s ease;
     }
+    .panel-images img:hover { transform: scale(1.03); }
 
-    /* ── Content column ── */
-    .side-content {
+    /* ─── CONTENT PANEL ──────────────────────────────── */
+    .panel-content {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 60px 56px 48px 40px;
-      position: relative;
+      padding: 64px 60px 56px 48px;
+      gap: 28px;
     }
 
-    .logo-row {
-      margin-bottom: 36px;
+    /* Logo */
+    .logo img { height: 44px; width: auto; }
+
+    /* Eyebrow */
+    .eyebrow {
+      font-size: 13.5px;
+      color: var(--burg);
+      font-weight: 400;
+      letter-spacing: 0.3px;
     }
+
+    /* Headline */
+    h1 {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: clamp(32px, 3.6vw, 50px);
+      font-weight: 900;
+      color: var(--burg);
+      line-height: 1.15;
+    }
+    .sep { color: var(--mid); font-weight: 300; margin: 0 8px; }
+
+    /* Subtitle */
+    .subtitle {
+      font-size: 15px;
+      color: var(--mid);
+      line-height: 1.8;
+      max-width: 380px;
+      margin-top: -8px;
+    }
+
+    /* Divider */
+    .rule {
+      width: 48px;
+      height: 2px;
+      background: var(--burg);
+      border-radius: 2px;
+      margin-top: -8px;
+    }
+
+    /* ─── ICON GRID ───────────────────────────────────── */
+    .icons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .ic {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 8px 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      text-align: center;
+      transition: box-shadow 0.2s;
+    }
+    .ic:hover { box-shadow: 0 6px 20px rgba(122,30,46,0.1); }
+
+    .ic svg {
+      width: 26px; height: 26px;
+      stroke: var(--burg);
+      fill: none;
+      stroke-width: 1.6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex-shrink: 0;
+    }
+    .ic span {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--dark);
+      line-height: 1.5;
+    }
+
+    /* ─── META (date + location) ─────────────────────── */
+    .meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .mc {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .mc-label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--mid);
+    }
+    .mc-label svg {
+      width: 13px; height: 13px;
+      stroke: var(--burg); fill: none;
+      stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round;
+    }
+    .mc-value {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--dark);
+    }
+
+    /* ─── CTA ────────────────────────────────────────── */
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--burg);
+      color: var(--white);
+      font-family: 'Heebo', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      padding: 17px 40px;
+      border-radius: 10px;
+      text-decoration: none;
+      align-self: flex-start;
+      transition: background 0.2s, transform 0.18s;
+      box-shadow: 0 8px 26px rgba(122,30,46,0.22);
+    }
+    .cta:hover { background: var(--burg-h); transform: translateY(-2px); }
+    .cta svg {
+      width: 17px; height: 17px;
+      stroke: var(--white); fill: none;
+      stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round;
+    }
+
+    /* ─── FOOTER LOGOS ───────────────────────────────── */
+    .footer-logos {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding-top: 4px;
+      border-top: 1px solid var(--border);
+    }
+    .footer-logos img { height: 30px; width: auto; opacity: 0.75; }
+
+    /* ─── RESPONSIVE ─────────────────────────────────── */
+
+    /* Tablet */
+    @media (max-width: 860px) {
+      .page {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr;
+        min-height: auto;
+      }
+
+      .panel-images {
+        position: static;
+        height: 280px;
+        grid-template-rows: 1fr;
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .panel-content {
+        padding: 48px 36px 44px;
+      }
+
+      .icons { grid-template-columns: repeat(4, 1fr); }
+    }
+
+    /* Mobile */
+    @media (max-width: 560px) {
+      .panel-images { height: 220px; }
+
+      .panel-content {
+        padding: 36px 22px 40px;
+        gap: 22px;
+      }
+
+      h1 { font-size: 28px; }
+
+      .icons { grid-template-columns: repeat(2, 1fr); }
+
+      .meta { grid-template-columns: 1fr 1fr; }
+
+      .cta { align-self: stretch; justify-content: center; }
+    }
+
+    @media (max-width: 360px) {
+      .meta { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- ── Images ── -->
+  <div class="panel-images">
+    <img src="images/elephant.jpg" alt="פיל בספארי" />
+    <img src="images/giraffe.jpg"  alt="האכלת ג׳ירפה" />
+    <img src="images/tiger.jpg"    alt="האכלת נמר" />
+  </div>
+
+  <!-- ── Content ── -->
+  <div class="panel-content">
+
+    <div class="logo">
+      <img src="images/logo.png" alt="NGG" />
+    </div>
+
+    <div>
+      <p class="eyebrow">🐾 מפגש חדש בספארי רמת גן 🐾</p>
+    </div>
+
+    <div>
+      <h1>למידה<span class="sep">|</span>השראה<span class="sep">|</span>השפעה</h1>
+    </div>
+
+    <div class="rule"></div>
+
+    <p class="subtitle">
+      חוויה ללמידה ארגונית ופיתוח מנהלים בלב הטבע, עם נקודת מבט חדשה.
+    </p>
+
+    <!-- Icon cards -->
+    <div class="icons">
+      <div class="ic">
+        <svg viewBox="0 0 24 24"><path d="M12 21C12 21 5 13.5 5 8.5a7 7 0 0 1 14 0c0 5-7 12.5-7 12.5Z"/><circle cx="12" cy="8.5" r="2.5"/></svg>
+        <span>למידה אחרת במקום חדש</span>
+      </div>
+      <div class="ic">
+        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        <span>תוכן, שיח והשראה</span>
+      </div>
+      <div class="ic">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <span>מפגשים עם מנהלים ומובילים</span>
+      </div>
+      <div class="ic">
+        <svg viewBox="0 0 24 24"><circle cx="6.5" cy="14" r="3.5"/><circle cx="17.5" cy="14" r="3.5"/><path d="M6.5 10.5V7l5.5-2 5.5 2v3.5"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
+        <span>בנקודת תצפית מרהיבה</span>
+      </div>
+    </div>
+
+    <!-- Date + Location -->
+    <div class="meta">
+      <div class="mc">
+        <span class="mc-label">
+          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          תאריך
+        </span>
+        <span class="mc-value">יום שני, 26.05.2026</span>
+      </div>
+      <div class="mc">
+        <span class="mc-label">
+          <svg viewBox="0 0 24 24"><path d="M12 21C12 21 5 13.5 5 8.5a7 7 0 0 1 14 0c0 5-7 12.5-7 12.5Z"/><circle cx="12" cy="8.5" r="2.5"/></svg>
+          מיקום
+        </span>
+        <span class="mc-value">ספארי רמת גן</span>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <a href="https://s.surveylegend.com/-OrPpJIpaRdROnm3PwYI" target="_blank" class="cta">
+      <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+      להרשמה
+    </a>
+
+    <!-- Logos -->
+    <div class="footer-logos">
+      <img src="images/logo.png" alt="NGG" />
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>    }
     .logo-row img {
       height: 38px;
       width: auto;
