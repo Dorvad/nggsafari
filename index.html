@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>למידה | השראה | השפעה – ספארי רמת גן</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;700;900&family=Heebo:wght@300;400;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --cream: #f5efe6;
+      --burgundy: #7a1e2e;
+      --burgundy-light: #a63248;
+      --warm-dark: #2e1a10;
+      --warm-mid: #7a6050;
+      --white: #ffffff;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Heebo', sans-serif;
+      background: var(--cream);
+      color: var(--warm-dark);
+      direction: rtl;
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .page {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      min-height: 100svh;
+    }
+
+    /* ── Images column ── */
+    .side-images {
+      display: grid;
+      grid-template-rows: 1fr 1fr 1fr;
+      gap: 3px;
+      overflow: hidden;
+    }
+
+    .side-images img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* ── Content column ── */
+    .side-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 60px 56px 48px 40px;
+      position: relative;
+    }
+
+    .logo-row {
+      margin-bottom: 36px;
+    }
+    .logo-row img {
+      height: 38px;
+      width: auto;
+    }
+
+    .paws {
+      font-size: 14px;
+      color: var(--burgundy);
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: clamp(34px, 4vw, 52px);
+      font-weight: 900;
+      color: var(--burgundy);
+      line-height: 1.15;
+      margin-bottom: 12px;
+    }
+
+    .h1-sep {
+      color: var(--warm-mid);
+      font-weight: 300;
+      margin: 0 8px;
+    }
+
+    .subtitle {
+      font-size: 15px;
+      color: var(--warm-mid);
+      line-height: 1.7;
+      margin-bottom: 32px;
+      max-width: 400px;
+    }
+
+    /* ── Icon cards ── */
+    .icons-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+
+    .icon-card {
+      background: var(--white);
+      border: 1px solid rgba(122,30,46,0.12);
+      border-radius: 10px;
+      padding: 16px 8px 14px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .icon-card svg {
+      width: 28px;
+      height: 28px;
+      stroke: var(--burgundy);
+      fill: none;
+      stroke-width: 1.6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .icon-card span {
+      font-size: 11.5px;
+      color: var(--warm-dark);
+      line-height: 1.45;
+      font-weight: 600;
+    }
+
+    /* ── Date + Location ── */
+    .meta-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .meta-card {
+      flex: 1;
+      background: var(--white);
+      border: 1px solid rgba(122,30,46,0.15);
+      border-radius: 10px;
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .meta-card__label {
+      font-size: 10.5px;
+      color: var(--warm-mid);
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .meta-card__label svg {
+      width: 13px; height: 13px;
+      stroke: var(--burgundy);
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex-shrink: 0;
+    }
+
+    .meta-card__value {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--warm-dark);
+    }
+
+    /* ── CTA ── */
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: var(--burgundy);
+      color: var(--white);
+      font-family: 'Heebo', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      padding: 18px 40px;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: background 0.22s, transform 0.18s;
+      box-shadow: 0 6px 24px rgba(122,30,46,0.25);
+      margin-bottom: 32px;
+      align-self: flex-start;
+    }
+    .cta-btn:hover {
+      background: var(--burgundy-light);
+      transform: translateY(-2px);
+    }
+    .cta-btn svg {
+      width: 18px; height: 18px;
+      stroke: var(--white);
+      fill: none;
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* ── Partner logos ── */
+    .logos-footer {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(122,30,46,0.12);
+    }
+    .logos-footer img {
+      height: 30px;
+      width: auto;
+      opacity: 0.8;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 780px) {
+      .page { grid-template-columns: 1fr; min-height: auto; }
+      .side-images {
+        grid-template-rows: 1fr;
+        grid-template-columns: repeat(3, 1fr);
+        height: 220px;
+      }
+      .side-content { padding: 36px 22px 32px; }
+      .icons-row { grid-template-columns: repeat(2, 1fr); }
+      .cta-btn { align-self: stretch; text-align: center; }
+    }
+
+    @media (max-width: 480px) {
+      h1 { font-size: 28px; }
+      .meta-row { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- Images -->
+  <div class="side-images">
+    <img src="images/elephant.jpg" alt="פיל בספארי" />
+    <img src="images/giraffe.jpg" alt="האכלת ג׳ירפה" />
+    <img src="images/tiger.jpg" alt="האכלת נמר" />
+  </div>
+
+  <!-- Content -->
+  <div class="side-content">
+
+    <div class="logo-row">
+      <img src="images/logo.png" alt="NGG" />
+    </div>
+
+    <p class="paws">🐾 מפגש חדש בספארי רמת גן 🐾</p>
+
+    <h1>
+      למידה<span class="h1-sep">|</span>השראה<span class="h1-sep">|</span>השפעה
+    </h1>
+
+    <p class="subtitle">
+      חוויה ללמידה ארגונית ופיתוח מנהלים בלב הטבע, עם נקודת מבט חדשה.
+    </p>
+
+    <div class="icons-row">
+      <div class="icon-card">
+        <svg viewBox="0 0 24 24"><path d="M12 21C12 21 5 13.5 5 8.5a7 7 0 0 1 14 0c0 5-7 12.5-7 12.5Z"/><circle cx="12" cy="8.5" r="2.5"/></svg>
+        <span>למידה אחרת במקום חדש</span>
+      </div>
+      <div class="icon-card">
+        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        <span>תוכן, שיח והשראה</span>
+      </div>
+      <div class="icon-card">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <span>מפגשים עם מנהלים ומובילים</span>
+      </div>
+      <div class="icon-card">
+        <svg viewBox="0 0 24 24"><circle cx="6" cy="14" r="4"/><circle cx="18" cy="14" r="4"/><path d="M6 10V6l6-2 6 2v4"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
+        <span>בנקודת תצפית מרהיבה</span>
+      </div>
+    </div>
+
+    <div class="meta-row">
+      <div class="meta-card">
+        <span class="meta-card__label">
+          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          תאריך
+        </span>
+        <span class="meta-card__value">יום שני, 26.05.2026</span>
+      </div>
+      <div class="meta-card">
+        <span class="meta-card__label">
+          <svg viewBox="0 0 24 24"><path d="M12 21C12 21 5 13.5 5 8.5a7 7 0 0 1 14 0c0 5-7 12.5-7 12.5Z"/><circle cx="12" cy="8.5" r="2.5"/></svg>
+          מיקום
+        </span>
+        <span class="meta-card__value">ספארי רמת גן</span>
+      </div>
+    </div>
+
+    <a href="https://s.surveylegend.com/-OrPpJIpaRdROnm3PwYI" target="_blank" class="cta-btn">
+      <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+      להרשמה
+    </a>
+
+    <div class="logos-footer">
+      <img src="images/logo.png" alt="NGG" />
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
