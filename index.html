@@ -30,34 +30,63 @@
     }
 
     /* ─── PAGE SHELL ─────────────────────────────────── */
+    /* RTL: column 1 = inline-start = RIGHT → content (58%)
+            column 2 = inline-end   = LEFT  → images  (42%) */
     .page {
       display: grid;
-      grid-template-columns: 42% 58%;
+      grid-template-columns: 58% 42%;
       min-height: 100svh;
     }
 
-    /* ─── IMAGE PANEL ────────────────────────────────── */
+    /* ─── IMAGE PANEL (LEFT column) ──────────────────── */
     .panel-images {
+      grid-column: 2;
       display: grid;
       grid-template-rows: 1fr 1fr 1fr;
-      gap: 4px;
+      gap: 3px;
       overflow: hidden;
       position: sticky;
       top: 0;
       height: 100svh;
     }
 
-    .panel-images img {
+    /* ─── CAROUSEL SLOT ──────────────────────────────── */
+    .img-slot {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .img-slot img {
+      position: absolute;
+      inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      display: block;
-      transition: transform 0.6s ease;
+      opacity: 0;
+      /* Ken Burns starting state (all slots) */
+      transform: scale(1.1);
+      /* Opacity crossfade + slow Ken Burns zoom/drift */
+      transition: opacity 1.6s ease, transform 11s ease-out;
+      will-change: opacity, transform;
     }
-    .panel-images img:hover { transform: scale(1.03); }
 
-    /* ─── CONTENT PANEL ──────────────────────────────── */
+    /* Active image – per-slot drift directions for variety */
+    .img-slot:nth-child(1) img.active {
+      opacity: 1;
+      transform: scale(1.0) translate(-1.2%, -0.8%);
+    }
+    .img-slot:nth-child(2) img.active {
+      opacity: 1;
+      transform: scale(1.0) translate(0.9%, -0.7%);
+    }
+    .img-slot:nth-child(3) img.active {
+      opacity: 1;
+      transform: scale(1.0) translate(-0.7%, 0.9%);
+    }
+
+    /* ─── CONTENT PANEL (RIGHT column) ──────────────── */
     .panel-content {
+      grid-column: 1;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -224,7 +253,10 @@
         min-height: auto;
       }
 
+      /* Images appear above content on mobile/tablet */
       .panel-images {
+        grid-column: 1;
+        grid-row: 1;
         position: static;
         height: 280px;
         grid-template-rows: 1fr;
@@ -232,6 +264,8 @@
       }
 
       .panel-content {
+        grid-column: 1;
+        grid-row: 2;
         padding: 48px 36px 44px;
       }
 
@@ -265,14 +299,7 @@
 
 <div class="page">
 
-  <!-- ── Images ── -->
-  <div class="panel-images">
-    <img src="images/elephant.jpg" alt="פיל בספארי" />
-    <img src="images/giraffe.jpg"  alt="האכלת ג׳ירפה" />
-    <img src="images/tiger.jpg"    alt="האכלת נמר" />
-  </div>
-
-  <!-- ── Content ── -->
+  <!-- ── Content (RIGHT column in RTL) ── -->
   <div class="panel-content">
 
     <div class="logo">
@@ -331,9 +358,9 @@
       </div>
     </div>
 
-    <!-- CTA -->
+    <!-- CTA – arrow points left (RTL reading direction) -->
     <a href="https://s.surveylegend.com/-OrPpJIpaRdROnm3PwYI" target="_blank" class="cta">
-      <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
       להרשמה
     </a>
 
@@ -343,7 +370,61 @@
     </div>
 
   </div>
+
+  <!-- ── Images carousel (LEFT column in RTL) ── -->
+  <div class="panel-images">
+
+    <!-- Slot 0 – top -->
+    <div class="img-slot">
+      <img src="images/elephant.jpg"      alt="" class="active" />
+      <img src="images/bar-rhinos.jpg"    alt="" />
+      <img src="images/food-truck.jpg"    alt="" />
+      <img src="images/group-briefing.jpg" alt="" />
+    </div>
+
+    <!-- Slot 1 – middle -->
+    <div class="img-slot">
+      <img src="images/giraffe.jpg"       alt="" class="active" />
+      <img src="images/outdoor-seating.jpg" alt="" />
+      <img src="images/tiger.jpg"         alt="" />
+      <img src="images/elephant.jpg"      alt="" />
+    </div>
+
+    <!-- Slot 2 – bottom -->
+    <div class="img-slot">
+      <img src="images/bar-rhinos.jpg"    alt="" class="active" />
+      <img src="images/tiger.jpg"         alt="" />
+      <img src="images/giraffe.jpg"       alt="" />
+      <img src="images/outdoor-seating.jpg" alt="" />
+    </div>
+
+  </div>
+
 </div>
+
+<script>
+(function () {
+  var INTERVAL = 5000; // ms each image stays visible
+  var STAGGER  = 1700; // ms offset between slots
+
+  document.querySelectorAll('.img-slot').forEach(function (slot, i) {
+    var imgs = slot.querySelectorAll('img');
+    var cur  = 0;
+
+    function advance() {
+      var prev = cur;
+      cur = (cur + 1) % imgs.length;
+
+      imgs[cur].classList.add('active');
+      imgs[prev].classList.remove('active');
+    }
+
+    setTimeout(function () {
+      setInterval(advance, INTERVAL);
+    }, i * STAGGER);
+  });
+})();
+</script>
 
 </body>
 </html>
