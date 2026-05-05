@@ -6,13 +6,14 @@
   <title>למידה | השראה | השפעה – ספארי רמת גן</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;700;900&family=Heebo:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;700;900&family=Heebo:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
   <style>
     :root {
       --cream:    #f5efe6;
       --burg:     #7a1e2e;
       --burg-h:   #9e2a3d;
+      --burg-bg:  rgba(122,30,46,0.06);
       --dark:     #2e1a10;
       --mid:      #7a6050;
       --white:    #ffffff;
@@ -20,13 +21,13 @@
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { height: 100%; }
-
+    html { min-height: 100%; }
     body {
       font-family: 'Heebo', sans-serif;
       background: var(--cream);
       color: var(--dark);
       direction: rtl;
+      min-height: 100%;
     }
 
     /* ─── PAGE SHELL ─────────────────────────────────── */
@@ -36,9 +37,10 @@
       display: grid;
       grid-template-columns: 58% 42%;
       min-height: 100svh;
+      align-items: start;
     }
 
-    /* ─── IMAGE PANEL (LEFT column) ──────────────────── */
+    /* ─── IMAGE PANEL (LEFT column, sticky) ──────────── */
     .panel-images {
       grid-column: 2;
       display: grid;
@@ -63,14 +65,11 @@
       height: 100%;
       object-fit: cover;
       opacity: 0;
-      /* Ken Burns starting state (all slots) */
       transform: scale(1.1);
-      /* Opacity crossfade + slow Ken Burns zoom/drift */
       transition: opacity 1.6s ease, transform 11s ease-out;
       will-change: opacity, transform;
     }
 
-    /* Active image – per-slot drift directions for variety */
     .img-slot:nth-child(1) img.active {
       opacity: 1;
       transform: scale(1.0) translate(-1.2%, -0.8%);
@@ -89,124 +88,81 @@
       grid-column: 1;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      padding: 64px 60px 56px 48px;
-      gap: 28px;
+      padding: 52px 60px 64px 48px;
     }
 
     /* Logo */
+    .logo { margin-bottom: 36px; }
     .logo img { height: 44px; width: auto; }
 
-    /* Eyebrow */
-    .eyebrow {
-      font-size: 13.5px;
-      color: var(--burg);
-      font-weight: 400;
-      letter-spacing: 0.3px;
-    }
+    /* ─── HEADLINE ───────────────────────────────────── */
+    .headline-block { margin-bottom: 28px; }
 
-    /* Headline */
     h1 {
       font-family: 'Frank Ruhl Libre', serif;
-      font-size: clamp(32px, 3.6vw, 50px);
+      font-size: clamp(28px, 3.2vw, 46px);
       font-weight: 900;
       color: var(--burg);
       line-height: 1.15;
     }
     .sep { color: var(--mid); font-weight: 300; margin: 0 8px; }
 
-    /* Subtitle */
-    .subtitle {
-      font-size: 15px;
-      color: var(--mid);
-      line-height: 1.8;
-      max-width: 380px;
-      margin-top: -8px;
-    }
-
-    /* Divider */
-    .rule {
-      width: 48px;
-      height: 2px;
-      background: var(--burg);
-      border-radius: 2px;
-      margin-top: -8px;
-    }
-
-    /* ─── ICON GRID ───────────────────────────────────── */
-    .icons {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-    }
-
-    .ic {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 18px 8px 14px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-      text-align: center;
-      transition: box-shadow 0.2s;
-    }
-    .ic:hover { box-shadow: 0 6px 20px rgba(122,30,46,0.1); }
-
-    .ic svg {
-      width: 26px; height: 26px;
-      stroke: var(--burg);
-      fill: none;
-      stroke-width: 1.6;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      flex-shrink: 0;
-    }
-    .ic span {
-      font-size: 11.5px;
-      font-weight: 600;
-      color: var(--dark);
-      line-height: 1.5;
-    }
-
-    /* ─── META (date + location) ─────────────────────── */
-    .meta {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-
-    .mc {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 16px 18px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .mc-label {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 10.5px;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--mid);
-    }
-    .mc-label svg {
-      width: 13px; height: 13px;
-      stroke: var(--burg); fill: none;
-      stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round;
-    }
-    .mc-value {
+    .headline-sub {
       font-family: 'Frank Ruhl Libre', serif;
-      font-size: 17px;
-      font-weight: 700;
+      font-size: clamp(16px, 1.8vw, 22px);
+      font-weight: 400;
+      color: var(--mid);
+      margin-top: 8px;
+      line-height: 1.4;
+    }
+
+    /* ─── OPENING QUOTE ──────────────────────────────── */
+    .opening-quote {
+      border-right: 3px solid var(--burg);
+      padding: 6px 18px 6px 0;
+      font-size: 15.5px;
+      font-style: italic;
+      color: var(--burg);
+      line-height: 1.85;
+      margin-bottom: 28px;
+    }
+
+    /* ─── TEXT BLOCKS ────────────────────────────────── */
+    .text-block p {
+      font-size: 15px;
       color: var(--dark);
+      line-height: 1.9;
+      margin-bottom: 11px;
+    }
+    .text-block p:last-child { margin-bottom: 0; }
+
+    /* ─── CONTENT SECTIONS ───────────────────────────── */
+    .content-section {
+      margin-top: 32px;
+      padding-top: 28px;
+      border-top: 1px solid var(--border);
+    }
+
+    .section-title {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: clamp(17px, 1.9vw, 21px);
+      font-weight: 700;
+      color: var(--burg);
+      margin-bottom: 14px;
+    }
+
+    /* ─── DETAILS ROW ────────────────────────────────── */
+    .details-row {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+    .detail-item {
+      font-size: 14.5px;
+      font-weight: 500;
+      color: var(--dark);
+      line-height: 1.6;
     }
 
     /* ─── CTA ────────────────────────────────────────── */
@@ -238,7 +194,8 @@
       display: flex;
       align-items: center;
       gap: 20px;
-      padding-top: 4px;
+      margin-top: 36px;
+      padding-top: 20px;
       border-top: 1px solid var(--border);
     }
     .footer-logos img { height: 30px; width: auto; opacity: 0.75; }
@@ -249,11 +206,10 @@
     @media (max-width: 860px) {
       .page {
         grid-template-columns: 1fr;
-        grid-template-rows: auto 1fr;
+        align-items: stretch;
         min-height: auto;
       }
 
-      /* Images appear above content on mobile/tablet */
       .panel-images {
         grid-column: 1;
         grid-row: 1;
@@ -266,32 +222,29 @@
       .panel-content {
         grid-column: 1;
         grid-row: 2;
-        padding: 48px 36px 44px;
+        padding: 44px 36px 52px;
       }
-
-      .icons { grid-template-columns: repeat(4, 1fr); }
     }
 
     /* Mobile */
     @media (max-width: 560px) {
       .panel-images { height: 220px; }
 
-      .panel-content {
-        padding: 36px 22px 40px;
-        gap: 22px;
-      }
+      .panel-content { padding: 32px 20px 48px; }
 
-      h1 { font-size: 28px; }
+      h1 { font-size: 26px; }
 
-      .icons { grid-template-columns: repeat(2, 1fr); }
+      .opening-quote { font-size: 14.5px; }
 
-      .meta { grid-template-columns: 1fr 1fr; }
+      .text-block p { font-size: 14.5px; }
+
+      .content-section { margin-top: 26px; padding-top: 22px; }
 
       .cta { align-self: stretch; justify-content: center; }
     }
 
     @media (max-width: 360px) {
-      .meta { grid-template-columns: 1fr; }
+      .panel-content { padding: 28px 16px 40px; }
     }
   </style>
 </head>
@@ -306,65 +259,68 @@
       <img src="images/logo.png" alt="NGG" />
     </div>
 
-    <div>
-      <p class="eyebrow">🐾 מפגש חדש בספארי רמת גן 🐾</p>
-    </div>
-
-    <div>
+    <!-- Headline -->
+    <div class="headline-block">
       <h1>למידה<span class="sep">|</span>השראה<span class="sep">|</span>השפעה</h1>
+      <p class="headline-sub">מפגש חדש בספארי רמת גן</p>
     </div>
 
-    <div class="rule"></div>
+    <!-- Opening quote -->
+    <blockquote class="opening-quote">
+      "כי אי אפשר ללמוד שחייה בהתכתבות — ולא ניתן לתאר את החוויה דרך מסך."
+    </blockquote>
 
-    <p class="subtitle">
-      חוויה ללמידה ארגונית ופיתוח מנהלים בלב הטבע, עם נקודת מבט חדשה.
-    </p>
-
-    <!-- Icon cards -->
-    <div class="icons">
-      <div class="ic">
-        <svg viewBox="0 0 24 24"><path d="M12 21C12 21 5 13.5 5 8.5a7 7 0 0 1 14 0c0 5-7 12.5-7 12.5Z"/><circle cx="12" cy="8.5" r="2.5"/></svg>
-        <span>למידה אחרת במקום חדש</span>
-      </div>
-      <div class="ic">
-        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        <span>תוכן, שיח והשראה</span>
-      </div>
-      <div class="ic">
-        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        <span>מפגשים עם מנהלים ומובילים</span>
-      </div>
-      <div class="ic">
-        <svg viewBox="0 0 24 24"><circle cx="6.5" cy="14" r="3.5"/><circle cx="17.5" cy="14" r="3.5"/><path d="M6.5 10.5V7l5.5-2 5.5 2v3.5"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
-        <span>בנקודת תצפית מרהיבה</span>
-      </div>
+    <!-- Opening paragraph -->
+    <div class="text-block">
+      <p>שמחים לעדכן על השקת פעילות חדשה וייחודית – יום למידה ארגוני בספארי ברמת גן.</p>
+      <p>במתכונת גמישה המתאימה לעובדים ולמנהלים, בכל הדרגים.</p>
+      <p>העמקת נוכחות, ההתבוננות בטבע , חיבור בין עולם החי- וחיבור לסוגיות ניהוליות של מחסור וחלוקת משאבים, המתמודדות עם איומים, חניכה, הקשבה ועוד.</p>
+      <p>ניתן לייצר מענה "תפור" למטרות שונות, בהתאם להרכב המשתתפים, החל מקבוצה אחת ועד לכלל מנהלי הארגון ביחד.</p>
+      <p>בכדי לאפשר התרשמות והיכרות עם הפעילות הייחודית נקיים יום חשיפה והתנסות ללא עלות בחודש הקרוב – מהרו להירשם ולהבטיח את מקומכן.ם</p>
     </div>
 
-    <!-- Date + Location -->
-    <div class="meta">
-      <div class="mc">
-        <span class="mc-label">
-          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-          תאריך
-        </span>
-        <span class="mc-value">יום שני, 26.05.2026</span>
+    <!-- Section: Why leave the classroom? -->
+    <section class="content-section">
+      <h2 class="section-title">למה לצאת מהכיתה?</h2>
+      <div class="text-block">
+        <p>בעולם שבו הידע הפך למוצר נגיש וזול — הערך הניהולי האמיתי נמצא במקום אחר: בחוויה, בשיפוט, בנוכחות.</p>
+        <p>מנהלים לא משתנים דרך שקפים. הם משתנים דרך התנסות, מפגש עם מציאות לא צפויה, ורפלקציה שנולדת מתוכה.</p>
+        <p>יציאה לסביבה לא שגרתית — כמו טבע ובעלי חיים — מאפשרת להשתחרר לרגע מ"זהות התפקיד" ולפגוש את עצמך כמנהל באופן אותנטי יותר.</p>
       </div>
-      <div class="mc">
-        <span class="mc-label">
-          <svg viewBox="0 0 24 24"><path d="M12 21C12 21 5 13.5 5 8.5a7 7 0 0 1 14 0c0 5-7 12.5-7 12.5Z"/><circle cx="12" cy="8.5" r="2.5"/></svg>
-          מיקום
-        </span>
-        <span class="mc-value">ספארי רמת גן</span>
+    </section>
+
+    <!-- Section: What happens during the day? -->
+    <section class="content-section">
+      <h2 class="section-title">מה קורה ביום?</h2>
+      <div class="text-block">
+        <p>נכיר את העולם המיוחד של הספארי וכיצד הוא יכול לתרום להובלת צוותים וארגונים.</p>
+        <p>המשתתפים ביום יוצאים מהשגרה לשעות של התבוננות, שיח ותוכן. מנקודת תצפית על עולם החי — מדברים על עולם הניהול על מנהיגות, חוסן, אמון, וקבלת החלטות.</p>
       </div>
-    </div>
+    </section>
 
-    <!-- CTA – arrow points left (RTL reading direction) -->
-    <a href="https://s.surveylegend.com/-OrPpJIpaRdROnm3PwYI" target="_blank" class="cta">
-      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
-      להרשמה
-    </a>
+    <!-- Section: Who is it for? -->
+    <section class="content-section">
+      <h2 class="section-title">למי מיועד?</h2>
+      <div class="text-block">
+        <p>יום החשיפה מכוון למי שמחפש.ת דרכים חדשות ומותאמות לעולם החדש להשקיע ולפתח את ההון האנושי בארגון  — מנהלי משאבי אנוש, רווחה, מנהלי למידה ופיתוח ארגוני.</p>
+      </div>
+    </section>
 
-    <!-- Logos -->
+    <!-- Section: Details + CTA -->
+    <section class="content-section">
+      <h2 class="section-title">פרטים ורישום</h2>
+      <div class="details-row">
+        <span class="detail-item">📅 יום שלישי , 26.05.2026</span>
+        <span class="detail-item">📍 ספארי רמת גן</span>
+        <span class="detail-item">✅ יום חשיפה ללא עלות — על בסיס מקום פנוי |  8:30-12:30</span>
+      </div>
+      <a href="https://s.surveylegend.com/-OrPpJIpaRdROnm3PwYI" target="_blank" class="cta">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+        להרשמה
+      </a>
+    </section>
+
+    <!-- Footer -->
     <div class="footer-logos">
       <img src="images/logo.png" alt="NGG" />
     </div>
@@ -376,25 +332,25 @@
 
     <!-- Slot 0 – top -->
     <div class="img-slot">
-      <img src="images/elephant.jpg"      alt="" class="active" />
-      <img src="images/bar-rhinos.jpg"    alt="" />
-      <img src="images/food-truck.jpg"    alt="" />
+      <img src="images/elephant.jpg"       alt="" class="active" />
+      <img src="images/bar-rhinos.jpg"     alt="" />
+      <img src="images/food-truck.jpg"     alt="" />
       <img src="images/group-briefing.jpg" alt="" />
     </div>
 
     <!-- Slot 1 – middle -->
     <div class="img-slot">
-      <img src="images/giraffe.jpg"       alt="" class="active" />
+      <img src="images/giraffe.jpg"         alt="" class="active" />
       <img src="images/outdoor-seating.jpg" alt="" />
-      <img src="images/tiger.jpg"         alt="" />
-      <img src="images/elephant.jpg"      alt="" />
+      <img src="images/tiger.jpg"           alt="" />
+      <img src="images/elephant.jpg"        alt="" />
     </div>
 
     <!-- Slot 2 – bottom -->
     <div class="img-slot">
-      <img src="images/bar-rhinos.jpg"    alt="" class="active" />
-      <img src="images/tiger.jpg"         alt="" />
-      <img src="images/giraffe.jpg"       alt="" />
+      <img src="images/bar-rhinos.jpg"      alt="" class="active" />
+      <img src="images/tiger.jpg"           alt="" />
+      <img src="images/giraffe.jpg"         alt="" />
       <img src="images/outdoor-seating.jpg" alt="" />
     </div>
 
@@ -404,8 +360,8 @@
 
 <script>
 (function () {
-  var INTERVAL = 5000; // ms each image stays visible
-  var STAGGER  = 1700; // ms offset between slots
+  var INTERVAL = 5000;
+  var STAGGER  = 1700;
 
   document.querySelectorAll('.img-slot').forEach(function (slot, i) {
     var imgs = slot.querySelectorAll('img');
@@ -414,7 +370,6 @@
     function advance() {
       var prev = cur;
       cur = (cur + 1) % imgs.length;
-
       imgs[cur].classList.add('active');
       imgs[prev].classList.remove('active');
     }
